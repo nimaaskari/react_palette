@@ -1,4 +1,5 @@
 import react, { Component } from "react";
+import { Link } from "react-router-dom";
 import Slider from "rc-slider";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
@@ -29,7 +30,7 @@ class Navbar extends Component {
     return (
       <header className="navbar">
         <div className="logo">
-          <a href="#">reactPalette</a>
+          <Link to="/">reactPalette</Link>
         </div>
         <div className="slider-container">
           <span>Level: {level}</span>
