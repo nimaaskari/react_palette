@@ -18,6 +18,11 @@ class App extends Component {
       <Switch>
         <Route
           exact
+          path="/"
+          render={() => <PaletteList palettes={seedColors} />}
+        />
+        <Route
+          exact
           path="/palette/:id"
           render={(routeProps) => (
             <Palette
@@ -26,11 +31,6 @@ class App extends Component {
               )}
             ></Palette>
           )}
-        />
-        <Route
-          exact
-          path="/"
-          render={() => <PaletteList palettes={seedColors} />}
         />
       </Switch>
 
