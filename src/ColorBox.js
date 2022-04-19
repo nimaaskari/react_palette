@@ -21,8 +21,8 @@ class ColorBox extends Component {
   render() {
     const { name, background, moreUrl, showLink } = this.props;
     const { copied } = this.state;
-    const isDarkColor = chroma(background).luminance() <= 0.29;
-    const isLightColor = chroma(background).luminance() >= 0.3;
+    const isDarkColor = chroma(background).luminance() <= 0.3;
+    const isLightColor = chroma(background).luminance() > 0.3;
 
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
