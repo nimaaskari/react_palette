@@ -8,6 +8,7 @@ const styles = {
     border: "1px solid black",
     borderRadius: "5px",
     padding: "0.5rem",
+    paddingBottom: "2rem",
     position: "relative",
     overflow: "hidden",
     "&:hover": {

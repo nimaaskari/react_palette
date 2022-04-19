@@ -34,6 +34,10 @@ class App extends Component {
             ></Palette>
           )}
         />
+        <Route
+          path="/palette/:paletteId/:colorId"
+          render={() => <h1>sgp</h1>}
+        />
       </Switch>
 
       /* {<div>
