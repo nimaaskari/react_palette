@@ -80,11 +80,12 @@ export default function NewPaletteForm(props) {
     setOpen(false);
   };
   const handleSubmit = () => {
+    let newName = "New test palette";
     const newPalette = {
       colors: colors,
       emoji: "35",
-      id: "1234",
-      paletteName: "New test palette",
+      id: newName.toLowerCase().replace(/ /g, "-"),
+      paletteName: newName,
     };
     props.savePalette(newPalette);
     props.history.push("/");
