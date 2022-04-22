@@ -69,7 +69,7 @@ export default function NewPaletteForm() {
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = React.useState("#234242");
   const [colors, setColors] = React.useState([
-    { color: "#ff0000", name: "red" },
+    { Color: "#ff0000", name: "red" },
   ]);
   const [name, setName] = React.useState("");
   const handleDrawerOpen = () => {
@@ -93,7 +93,7 @@ export default function NewPaletteForm() {
 
       return valid;
     });
-  }, []);
+  });
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -156,7 +156,7 @@ export default function NewPaletteForm() {
         <ValidatorForm
           onSubmit={() => {
             const newColor = {
-              color: color,
+              Color: color,
               name: name,
             };
             setColors([...colors, newColor]);
@@ -169,7 +169,7 @@ export default function NewPaletteForm() {
             }}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
-              "Enter a color name",
+              "Enter a color name ",
               "Color name must be unique",
               "Color already used",
             ]}
@@ -190,7 +190,7 @@ export default function NewPaletteForm() {
         <DrawerHeader />
 
         {colors.map((color) => (
-          <DraggableColorBox color={color.color} name={color.name} />
+          <DraggableColorBox color={color.Color} name={color.name} />
         ))}
       </Main>
     </Box>
