@@ -67,9 +67,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function NewPaletteForm(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [color, setColor] = React.useState("#234242");
+  const [cColor, setcColor] = React.useState("#234242");
   const [colors, setColors] = React.useState([
-    { Color: "#ff0000", name: "red" },
+    { color: "#ff0000", name: "red" },
   ]);
   const [name, setName] = React.useState("");
   const handleDrawerOpen = () => {
@@ -99,7 +99,7 @@ export default function NewPaletteForm(props) {
       return valid;
     });
     ValidatorForm.addValidationRule("isColorUnique", (value) => {
-      const valid = colors.every(({ Color }) => Color !== color);
+      const valid = colors.every(({ color }) => color !== cColor);
 
       return valid;
     });
@@ -160,16 +160,16 @@ export default function NewPaletteForm(props) {
           </Button>
         </div>
         <ChromePicker
-          color={color}
+          color={cColor}
           onChangeComplete={(newColor) => {
             const { hex } = newColor;
-            setColor(hex);
+            setcColor(hex);
           }}
         />
         <ValidatorForm
           onSubmit={() => {
             const newColor = {
-              Color: color,
+              color: cColor,
               name: name,
             };
             setColors([...colors, newColor]);
@@ -191,7 +191,7 @@ export default function NewPaletteForm(props) {
             variant="contained"
             type="submit"
             color="primary"
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: cColor }}
 
             // onClick={() => setColors([...colors, color])}
           >
@@ -203,7 +203,7 @@ export default function NewPaletteForm(props) {
         <DrawerHeader />
 
         {colors.map((color) => (
-          <DraggableColorBox color={color.Color} name={color.name} />
+          <DraggableColorBox color={color.color} name={color.name} />
         ))}
       </Main>
     </Box>
