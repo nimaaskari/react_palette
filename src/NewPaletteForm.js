@@ -91,6 +91,9 @@ export default function NewPaletteForm(props) {
     props.savePalette(newPalette);
     props.history.push("/");
   };
+  const removeColor = (colorName) => {
+    setColors(colors.filter((color) => color.name !== colorName));
+  };
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
@@ -212,8 +215,6 @@ export default function NewPaletteForm(props) {
             type="submit"
             color="primary"
             style={{ backgroundColor: cColor }}
-
-            // onClick={() => setColors([...colors, color])}
           >
             Add Color
           </Button>
@@ -223,7 +224,12 @@ export default function NewPaletteForm(props) {
         <DrawerHeader />
 
         {colors.map((color) => (
-          <DraggableColorBox color={color.color} name={color.name} />
+          <DraggableColorBox
+            key={color.name}
+            color={color.color}
+            name={color.name}
+            handleClick={() => removeColor(color.name)}
+          />
         ))}
       </Main>
     </Box>
