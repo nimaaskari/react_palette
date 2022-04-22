@@ -21,7 +21,7 @@ const styles = {
   },
   boxContent: {
     position: "absolute",
-    width: "100",
+    width: "100%",
     left: "0px",
     bottom: "0px",
     padding: "10px",
@@ -31,6 +31,9 @@ const styles = {
     fontSize: "12px",
     display: "flex",
     justifyContent: "space-between",
+    "& svg": {
+      right: "0px",
+    },
   },
 };
 
@@ -43,7 +46,6 @@ const DraggableColorBox = SortableElement((props) => {
 
         <DeleteOutlinedIcon onClick={handleClick} />
       </div>
-      {props.name}
     </div>
   );
 });

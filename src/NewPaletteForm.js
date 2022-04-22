@@ -69,9 +69,7 @@ export default function NewPaletteForm(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [cColor, setcColor] = React.useState("#234242");
-  const [colors, setColors] = React.useState([
-    { color: "#ff0000", name: "red" },
-  ]);
+  const [colors, setColors] = React.useState(props.palettes[0].colors);
   const [newPaletteName, setnewPaletteName] = React.useState("");
   const [name, setName] = React.useState("");
   const handleDrawerOpen = () => {
@@ -96,6 +94,17 @@ export default function NewPaletteForm(props) {
 
   const removeColor = (colorName) => {
     setColors(colors.filter((color) => color.name !== colorName));
+  };
+
+  const addRandomColor = () => {
+    const allColors = props.palettes.map((p) => p.colors).flat();
+    var rand = Math.floor(Math.random() * allColors.length);
+    const randomColor = allColors[rand];
+    setColors([...colors, randomColor]);
+  };
+
+  const clearColors = () => {
+    setColors([]);
   };
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
@@ -190,10 +199,15 @@ export default function NewPaletteForm(props) {
         <Divider />
         <Typography variant="h4">Design Your Palette</Typography>
         <div>
-          <Button variant="contained" color="secondary">
+          <Button variant="contained" color="secondary" onClick={clearColors}>
             Clear Palette
           </Button>
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={colors.length >= props.maxColors}
+            onClick={addRandomColor}
+          >
             Random Color
           </Button>
         </div>
@@ -229,9 +243,15 @@ export default function NewPaletteForm(props) {
             variant="contained"
             type="submit"
             color="primary"
-            style={{ backgroundColor: cColor }}
+            disabled={colors.length >= props.maxColors}
+            style={{
+              backgroundColor:
+                colors.length >= props.maxColors ? "grey" : cColor,
+            }}
           >
-            Add Color
+            {`${
+              colors.length >= props.maxColors ? "Palette Full" : "Add Color"
+            }`}
           </Button>
         </ValidatorForm>
       </Drawer>
