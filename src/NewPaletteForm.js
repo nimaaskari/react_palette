@@ -13,8 +13,9 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { ChromePicker } from "react-color";
 import { Button } from "@mui/material";
-import DraggableColorBox from "./DraggableColorBox";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import DraggableColorList from "./DraggableColorList";
+import { arrayMoveImmutable } from "array-move";
 
 const drawerWidth = 400;
 
@@ -80,6 +81,7 @@ export default function NewPaletteForm(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const handleSubmit = () => {
     let newName = newPaletteName;
     const newPalette = {
@@ -91,9 +93,22 @@ export default function NewPaletteForm(props) {
     props.savePalette(newPalette);
     props.history.push("/");
   };
+
   const removeColor = (colorName) => {
     setColors(colors.filter((color) => color.name !== colorName));
   };
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setColors((colors) => {
+      return arrayMoveImmutable(colors, oldIndex, newIndex);
+    });
+  };
+
+  // const onSortEnd = ({ oldIndex, newIndex }) => {
+  //   this.setState(({ colors }) => ({
+  //     items: arrayMove(, oldIndex, newIndex),
+  //   }));
+  // };
 
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
@@ -222,15 +237,20 @@ export default function NewPaletteForm(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-
-        {colors.map((color) => (
+        <DraggableColorList
+          colors={colors}
+          removeColor={removeColor}
+          axis="xy"
+          onSortEnd={onSortEnd}
+        />
+        {/* {colors.map((color) => (
           <DraggableColorBox
             key={color.name}
             color={color.color}
             name={color.name}
             handleClick={() => removeColor(color.name)}
           />
-        ))}
+        ))} */}
       </Main>
     </Box>
   );
