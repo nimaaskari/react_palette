@@ -10,6 +10,7 @@ const styles = {
     margin: "0 auto",
     display: "inline-block",
     position: "relative",
+
     cursor: "pointer",
     marginBottom: "-3.5px",
     position: "relative",
@@ -17,6 +18,19 @@ const styles = {
       color: "white",
       transform: "scale(1.3)",
       transition: "all 0.3s ease-in-out",
+    },
+    "@media (max-width: 1200px)": {
+      width: "25%",
+      height: "20%",
+    },
+    "@media (max-width: 992px)": {},
+    "@media (max-width: 768px)": {
+      width: "50%",
+      height: "10%",
+    },
+    "@media (max-width: 576px)": {
+      width: "100%",
+      height: "5%",
     },
   },
   boxContent: {
@@ -33,6 +47,9 @@ const styles = {
     justifyContent: "space-between",
     "& svg": {
       right: "0px",
+    },
+    "@media (max-width: 576px)": {
+      padding: "0",
     },
   },
 };

@@ -242,7 +242,11 @@ function NewPaletteForm(props) {
                 variant="contained"
                 color="secondary"
                 className={props.classes.navBtn}
-                style={{ marginRight: "10px" }}
+                style={{
+                  marginRight: "10px",
+                  fontSize: "0.8rem",
+                  padding: "10px",
+                }}
               >
                 Go Back
               </Button>
@@ -251,6 +255,10 @@ function NewPaletteForm(props) {
               <Button
                 variant="contained"
                 color="primary"
+                style={{
+                  fontSize: "0.8rem",
+                  padding: "10px",
+                }}
                 className={props.classes.navBtn}
                 onClick={handleClickDialogOpen}
               >

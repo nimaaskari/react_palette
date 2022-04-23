@@ -8,7 +8,7 @@ import "rc-slider/assets/index.css";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-import "./Navbar.css";
+import "./Navbar.scss";
 
 class Navbar extends Component {
   constructor(props) {
