@@ -7,10 +7,10 @@ import { render } from "@testing-library/react";
 const styles = {
   root: {
     backgroundColor: "white",
-    border: "1px solid black",
+    border: "1px solid rgba(0,0,0,0.3)",
     borderRadius: "5px",
     padding: "0.5rem",
-    paddingBottom: "2rem",
+    paddingBottom: "1.5rem",
     position: "relative",
     overflow: "hidden",
     cursor: "pointer",
@@ -20,7 +20,7 @@ const styles = {
   },
   colors: {
     backgroundColor: "#dae1e4",
-    height: "150px",
+    height: "120px",
     width: "100%",
     borderRadius: "5px",
     overflow: "hidden",
