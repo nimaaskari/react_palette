@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import { borderRadius } from "@mui/system";
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
+import { render } from "@testing-library/react";
 
 const styles = {
   root: {
@@ -46,7 +47,7 @@ const styles = {
     position: "relative",
     marginBottom: "-3.5px",
   },
-  delete: {},
+
   deleteIcon: {
     color: "white",
     backgroundColor: "#eb3d30",
@@ -61,31 +62,41 @@ const styles = {
   },
 };
 
-function MiniPalette(props) {
-  const { classes, paletteName, emoji, colors, handleClick } = props;
+class MiniPalette extends Component {
+  constructor(props) {
+    super(props);
+    this.deletePalette = this.deletePalette.bind(this);
+  }
+  deletePalette(e) {
+    e.stopPropagation();
+    this.props.handleDelete(this.props.id);
+  }
+  render() {
+    const { classes, paletteName, emoji, colors, handleClick } = this.props;
 
-  const miniColorBoxes = colors.map((color) => (
-    <div
-      className={classes.miniColor}
-      style={{ backgroundColor: color.color }}
-      key={color.name}
-    ></div>
-  ));
-  return (
-    <div className={classes.root} onClick={handleClick}>
-      <div className={classes.delete}>
+    const miniColorBoxes = colors.map((color) => (
+      <div
+        className={classes.miniColor}
+        style={{ backgroundColor: color.color }}
+        key={color.name}
+      ></div>
+    ));
+    return (
+      <div className={classes.root} onClick={handleClick}>
         <DeleteOutlined
           className={classes.deleteIcon}
           style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
+          onClick={this.deletePalette}
         />
+
+        <div className={classes.colors}>{miniColorBoxes}</div>
+        <h5 className={classes.title}>
+          {paletteName}
+          {/* <span className={classes.emoji}>{emoji}</span> */}
+        </h5>
       </div>
-      <div className={classes.colors}>{miniColorBoxes}</div>
-      <h5 className={classes.title}>
-        {paletteName}
-        {/* <span className={classes.emoji}>{emoji}</span> */}
-      </h5>
-    </div>
-  );
+    );
+  }
 }
 
 export default withStyles(styles)(MiniPalette);
