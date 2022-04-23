@@ -1,7 +1,6 @@
 import React, { Component, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-import PaletteMetaForm from "./PaletteMetaForm";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,6 +29,7 @@ const styles = {
   root: {
     display: "flex",
   },
+
   navBtns: {
     display: "flex",
     flexDirection: "row",
@@ -70,6 +70,12 @@ const styles = {
   button: {
     width: "48%",
   },
+  navBtns: {
+    marginRight: "1rem",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  navBtn: {},
 };
 
 const drawerWidth = 400;
@@ -204,7 +210,18 @@ function NewPaletteForm(props) {
     <Box sx={{ display: "flex" }}>
       <div className={props.classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} color="default">
+        <AppBar
+          position="fixed"
+          open={open}
+          color="default"
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            height: "64px",
+            alignItems: "center",
+          }}
+        >
           <Toolbar>
             <IconButton
               color="inherit"
@@ -220,21 +237,39 @@ function NewPaletteForm(props) {
             </Typography>
           </Toolbar>
           <div className={props.classes.navBtns}>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                className={props.classes.navBtn}
+                style={{ marginRight: "10px" }}
+              >
+                Go Back
+              </Button>
+            </Link>
             <div>
-              <Button variant="outlined" onClick={handleClickDialogOpen}>
-                Open form dialog
+              <Button
+                variant="contained"
+                color="primary"
+                className={props.classes.navBtn}
+                onClick={handleClickDialogOpen}
+              >
+                Save Palette
               </Button>
               <Dialog open={dialogOpen} onClose={handleDialogClose}>
-                <DialogTitle>Subscribe</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    To subscribe to this website, please enter your email
-                    address here. We will send updates occasionally.
-                  </DialogContentText>
-                  <ValidatorForm onSubmit={handleSubmit}>
+                <DialogTitle>Choose a Palette Name</DialogTitle>
+                <ValidatorForm onSubmit={handleSubmit}>
+                  <DialogContent>
+                    <DialogContentText>
+                      Please enter a name for your new Palette. Make sure it's
+                      unique!
+                    </DialogContentText>
                     <TextValidator
                       label="Palette Name"
                       value={newPaletteName}
+                      fullWidth
+                      variant="filled"
+                      margin="normal"
                       onChange={(evt) => {
                         setnewPaletteName(evt.target.value);
                       }}
@@ -244,130 +279,126 @@ function NewPaletteForm(props) {
                         "Name already used",
                       ]}
                     />
-                    <Button type="submit" variant="contained" color="primary">
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleDialogClose}>Cancel</Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      className={props.classes.navBtn}
+                    >
                       Save Palette
                     </Button>
-                  </ValidatorForm>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleDialogClose}>Cancel</Button>
-                  <Button onClick={handleDialogClose}>Subscribe</Button>
-                </DialogActions>
+                  </DialogActions>
+                </ValidatorForm>
               </Dialog>
             </div>
-            <Link to={"/"}>
-              <Button variant="contained" color="secondary">
-                Go Back
-              </Button>
-            </Link>
           </div>
         </AppBar>
       </div>
 
-      <div>
-        <Drawer
-          sx={{
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              display: "flex",
-              alignItems: "center",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <div className={props.classes.container}>
-            <Typography variant="h4" gutterBottom>
-              Design Your Palette
-            </Typography>
-            <div className={props.classes.buttons}>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={props.classes.button}
-                onClick={clearColors}
-              >
-                Clear Palette
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className={props.classes.button}
-                disabled={colors.length >= props.maxColors}
-                onClick={addRandomColor}
-              >
-                Random Color
-              </Button>
-            </div>
-            <ChromePicker
-              color={cColor}
-              className={props.classes.picker}
-              onChangeComplete={(newColor) => {
-                const { hex } = newColor;
-                setcColor(hex);
+            boxSizing: "border-box",
+            display: "flex",
+            alignItems: "center",
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <div className={props.classes.container}>
+          <Typography variant="h4" gutterBottom>
+            Design Your Palette
+          </Typography>
+          <div className={props.classes.buttons}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={props.classes.button}
+              onClick={clearColors}
+            >
+              Clear Palette
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={props.classes.button}
+              disabled={colors.length >= props.maxColors}
+              onClick={addRandomColor}
+            >
+              Random Color
+            </Button>
+          </div>
+          <ChromePicker
+            color={cColor}
+            className={props.classes.picker}
+            onChangeComplete={(newColor) => {
+              const { hex } = newColor;
+              setcColor(hex);
+            }}
+          />
+          <ValidatorForm
+            className={props.classes.validatorForm}
+            onSubmit={() => {
+              const newColor = {
+                color: cColor,
+                name: name,
+              };
+              setColors([...colors, newColor]);
+            }}
+          >
+            <TextValidator
+              value={name}
+              className={props.classes.colorNameInput}
+              margin="normal"
+              placeholder="Color Name"
+              onChange={(evt) => {
+                setName(evt.target.value);
               }}
+              variant="filled"
+              validators={["required", "isColorNameUnique", "isColorUnique"]}
+              errorMessages={[
+                "Enter a color name ",
+                "Color name must be unique",
+                "Color already used",
+              ]}
             />
-            <ValidatorForm
-              className={props.classes.validatorForm}
-              onSubmit={() => {
-                const newColor = {
-                  color: cColor,
-                  name: name,
-                };
-                setColors([...colors, newColor]);
+            <Button
+              variant="contained"
+              type="submit"
+              color="primary"
+              className={props.classes.addColorBtn}
+              disabled={colors.length >= props.maxColors}
+              style={{
+                backgroundColor:
+                  colors.length >= props.maxColors ? "grey" : cColor,
               }}
             >
-              <TextValidator
-                value={name}
-                className={props.classes.colorNameInput}
-                margin="normal"
-                placeholder="Color Name"
-                onChange={(evt) => {
-                  setName(evt.target.value);
-                }}
-                variant="filled"
-                validators={["required", "isColorNameUnique", "isColorUnique"]}
-                errorMessages={[
-                  "Enter a color name ",
-                  "Color name must be unique",
-                  "Color already used",
-                ]}
-              />
-              <Button
-                variant="contained"
-                type="submit"
-                color="primary"
-                className={props.classes.addColorBtn}
-                disabled={colors.length >= props.maxColors}
-                style={{
-                  backgroundColor:
-                    colors.length >= props.maxColors ? "grey" : cColor,
-                }}
-              >
-                {`${
-                  colors.length >= props.maxColors
-                    ? "Palette Full"
-                    : "Add Color"
-                }`}
-              </Button>
-            </ValidatorForm>
-          </div>
-        </Drawer>
-      </div>
+              {`${
+                colors.length >= props.maxColors ? "Palette Full" : "Add Color"
+              }`}
+            </Button>
+          </ValidatorForm>
+        </div>
+      </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
         <DraggableColorList
