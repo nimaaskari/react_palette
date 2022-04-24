@@ -407,7 +407,7 @@ function NewPaletteForm(props) {
         </div>
       </Drawer>
 
-      <Main open={open}>
+      <Main open={open} style={{ padding: "0" }}>
         <DrawerHeader />
         <DraggableColorList
           colors={colors}
@@ -415,14 +415,6 @@ function NewPaletteForm(props) {
           axis="xy"
           onSortEnd={onSortEnd}
         />
-        {/* {colors.map((color) => (
-          <DraggableColorBox
-            key={color.name}
-            color={color.color}
-            name={color.name}
-            handleClick={() => removeColor(color.name)}
-          />
-        ))} */}
       </Main>
     </Box>
   );
