@@ -8,7 +8,24 @@ import PaletteList from "./PaletteList";
 import { Switch } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import NewPaletteForm from "./NewPaletteForm";
-import "./App.scss";
+import { withStyles } from "@material-ui/styles";
+
+const styles = {
+  "@global": {
+    ".fade-exit": {
+      opacity: 1,
+    },
+    ".fade-exit-active": {
+      opacity: 0,
+      transition: "opacity 500ms ease-out",
+    },
+  },
+  page: {
+    height: "100vh",
+    position: "fixed",
+    width: "100%",
+  },
+};
 
 class App extends Component {
   constructor(props) {
@@ -59,7 +76,7 @@ class App extends Component {
                   exact
                   path="/palette/new"
                   render={(routeProps) => (
-                    <div className="page">
+                    <div className={this.props.classes.page}>
                       <NewPaletteForm
                         savePalette={this.savePalette}
                         {...routeProps}
@@ -73,7 +90,7 @@ class App extends Component {
                   exact
                   path="/palette/:paletteId/:colorId"
                   render={(routeProps) => (
-                    <div className="page">
+                    <div className={this.props.classes.page}>
                       <SingleColorPalette
                         colorId={routeProps.match.params.colorId}
                         palette={generatePalette(
@@ -87,7 +104,7 @@ class App extends Component {
                   exact
                   path="/"
                   render={(routeProps) => (
-                    <div className="page">
+                    <div className={this.props.classes.page}>
                       <PaletteList
                         palettes={this.state.palettes}
                         deletePalette={this.deletePalette}
@@ -100,12 +117,23 @@ class App extends Component {
                   exact
                   path="/palette/:id"
                   render={(routeProps) => (
-                    <div className="page">
+                    <div className={this.props.classes.page}>
                       <Palette
                         palette={generatePalette(
                           this.findPalette(routeProps.match.params.id)
                         )}
                       ></Palette>
+                    </div>
+                  )}
+                />
+                <Route
+                  render={(routeProps) => (
+                    <div className={this.props.classes.page}>
+                      <PaletteList
+                        palettes={this.state.palettes}
+                        deletePalette={this.deletePalette}
+                        {...routeProps}
+                      />
                     </div>
                   )}
                 />
@@ -122,4 +150,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

@@ -24,6 +24,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import seedColors from "./seedColors";
 
 const styles = {
   root: {
@@ -130,7 +131,7 @@ function NewPaletteForm(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [cColor, setcColor] = React.useState("#234242");
-  const [colors, setColors] = React.useState(props.palettes[0].colors);
+  const [colors, setColors] = React.useState(seedColors[0].colors);
   const [newPaletteName, setnewPaletteName] = React.useState("");
   const [name, setName] = React.useState("");
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -169,8 +170,14 @@ function NewPaletteForm(props) {
 
   const addRandomColor = () => {
     const allColors = props.palettes.map((p) => p.colors).flat();
-    var rand = Math.floor(Math.random() * allColors.length);
-    const randomColor = allColors[rand];
+    let rand;
+    let randomColor;
+    let isDuplicate = true;
+    while (isDuplicate) {
+      rand = Math.floor(Math.random() * allColors.length);
+      randomColor = allColors[rand];
+      isDuplicate = colors.some((color) => color.name === randomColor.name);
+    }
     setColors([...colors, randomColor]);
   };
 

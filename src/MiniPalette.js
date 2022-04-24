@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { withStyles } from "@material-ui/styles";
 import { borderRadius } from "@mui/system";
 import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
@@ -62,7 +62,7 @@ const styles = {
   },
 };
 
-class MiniPalette extends Component {
+class MiniPalette extends PureComponent {
   constructor(props) {
     super(props);
     this.deletePalette = this.deletePalette.bind(this);
