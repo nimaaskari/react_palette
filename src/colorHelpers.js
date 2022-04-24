@@ -6,7 +6,7 @@ function generatePalette(starterPalette) {
     paletteName: starterPalette.paletteName,
     id: starterPalette.id,
     emoji: starterPalette.emoji,
-    colors: {}
+    colors: {},
   };
   for (let level of levels) {
     newPalette.colors[level] = [];
@@ -22,7 +22,7 @@ function generatePalette(starterPalette) {
         rgba: chroma(scale[i])
           .css()
           .replace("rgb", "rgba")
-          .replace(")", ",1.0)")
+          .replace(")", ",1.0)"),
       });
     }
   }
@@ -30,20 +30,11 @@ function generatePalette(starterPalette) {
 }
 function getRange(hexColor) {
   const end = "#fff";
-  return [
-    chroma(hexColor)
-      .darken(1.4)
-      .hex(),
-    hexColor,
-    end
-  ];
+  return [chroma(hexColor).darken(1.4).hex(), hexColor, end];
 }
 
 function getScale(hexColor, numberOfColors) {
-  return chroma
-    .scale(getRange(hexColor))
-    .mode("lab")
-    .colors(numberOfColors);
+  return chroma.scale(getRange(hexColor)).mode("lab").colors(numberOfColors);
 }
 
 export { generatePalette };
