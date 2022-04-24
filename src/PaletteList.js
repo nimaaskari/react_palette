@@ -1,12 +1,21 @@
-import { palette } from "@mui/system";
 import React, { Component } from "react";
 import MiniPalette from "./MiniPalette";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import bg from "./bg.svg";
 import img from "./img/b.jpg";
 
 const styles = {
+  "@global": {
+    ".fade-exit": {
+      opacity: 1,
+    },
+    ".fade-exit-active": {
+      opacity: 0,
+      transition: "opacity 500ms ease-out",
+    },
+  },
   root: {
     // backgroundColor: "purple",
     // backgroundColor: "#22EECC",
@@ -45,6 +54,8 @@ const styles = {
   nav: {
     display: "flex",
     width: "100%",
+    // height: "50px",
+    margin: "0",
     justifyContent: "space-between",
     color: "white",
     alignItems: "center",
@@ -56,9 +67,10 @@ const styles = {
   palettes: {
     boxSizing: "border-box",
     width: "100%",
+    margin: "0",
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
-    gridGap: "5%",
+    gridGap: "4%",
     "@media (max-width: 1200px)": {
       gridGap: "4%",
     },
@@ -88,17 +100,20 @@ class PaletteList extends Component {
             <h1 className={classes.heading}>PaletteList</h1>
             <Link to="/palette/new">Creat Palette</Link>
           </nav>
-          <div className={classes.palettes}>
+
+          <TransitionGroup className={classes.palettes}>
             {palettes.map((palette) => (
-              <MiniPalette
-                {...palette}
-                handleClick={() => this.goToPalette(palette.id)}
-                handleDelete={this.props.deletePalette}
-                key={palette.id}
-                id={palette.id}
-              />
+              <CSSTransition ket={palette.id} classNames="fade" timeout={500}>
+                <MiniPalette
+                  {...palette}
+                  handleClick={() => this.goToPalette(palette.id)}
+                  handleDelete={this.props.deletePalette}
+                  key={palette.id}
+                  id={palette.id}
+                />
+              </CSSTransition>
             ))}
-          </div>
+          </TransitionGroup>
         </div>
       </div>
     );
