@@ -5,6 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import "rc-slider/assets/index.css";
+import { Button } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
@@ -34,7 +35,7 @@ class Navbar extends Component {
         </div>
         {showingAllColors && (
           <div className="slider-container">
-            <span>Level: {level}</span>
+            <span className="level-number">Level: {level}</span>
             <div className="slider">
               <Slider
                 defaultValue={level}
@@ -44,14 +45,30 @@ class Navbar extends Component {
                 onAfterChange={changeLevel}
               />
             </div>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{
+                  position: "absolute",
+                  right: "0",
+                  top: "7%",
+                  marginRight: "10px",
+                  fontSize: "0.8rem",
+                  padding: "5px",
+                }}
+              >
+                Go Back
+              </Button>
+            </Link>
           </div>
         )}
         <div className="select-container">
-          <Select value={format} onChange={handleChange}>
+          {/* <Select value={format} onChange={handleChange}>
             <MenuItem value="hex">HEX - #ffffff</MenuItem>
             <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
             <MenuItem value="rgba">RGBA - rgba(255,255,255, 1.0)</MenuItem>
-          </Select>
+          </Select> */}
         </div>
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}

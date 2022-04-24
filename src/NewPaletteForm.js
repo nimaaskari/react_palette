@@ -39,7 +39,7 @@ const styles = {
   },
   container: {
     width: "90%",
-    height: "100%",
+    height: "85%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -48,7 +48,7 @@ const styles = {
 
   picker: {
     width: "100% !important",
-    marginTop: "2rem",
+    marginTop: "1rem",
   },
   validatorForm: {
     width: "100%",
@@ -329,7 +329,14 @@ function NewPaletteForm(props) {
         open={open}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton
+            onClick={handleDrawerClose}
+            style={{
+              position: "absolute",
+              right: "0",
+              backgroundColor: "#00000011",
+            }}
+          >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
@@ -339,7 +346,7 @@ function NewPaletteForm(props) {
         </DrawerHeader>
         <Divider />
         <div className={props.classes.container}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom style={{ fontSize: "1.8rem" }}>
             Design Your Palette
           </Typography>
           <div className={props.classes.buttons}>
