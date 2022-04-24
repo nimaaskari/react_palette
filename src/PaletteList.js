@@ -3,8 +3,9 @@ import MiniPalette from "./MiniPalette";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import bg from "./bg.svg";
+import bg from "./img/bg.svg";
 import img from "./img/b.jpg";
+import shadows from "@mui/material/styles/shadows";
 
 const styles = {
   "@global": {
@@ -17,11 +18,11 @@ const styles = {
     },
   },
   root: {
-    // backgroundColor: "purple",
+    backgroundColor: "blue",
     // backgroundColor: "#22EECC",
-    backgroundImage: `url(${img})`,
+    backgroundImage: `url(${bg})`,
 
-    backgroundSize: "50%",
+    backgroundSize: "33%",
     backgroundRepeat: "repeat",
     overflow: "scroll",
     height: "100vh",
@@ -31,6 +32,7 @@ const styles = {
   },
   heading: {
     fontSize: "2rem",
+    fontWeight: "700",
   },
   container: {
     width: "55%",
